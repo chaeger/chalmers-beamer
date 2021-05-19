@@ -1,0 +1,290 @@
+%==============================================================
+% beamerthemeChalmers.sty <<<
+%==============================================================
+% .sty files have to be put either in the same folder as your
+% presentation, or in your tex-installation folder (that one can
+% identify with '$ kpsewhich -var-value=TEXMFHOME') under 
+% $TEXFOLDER/tex/latex/beamer/
+% 
+% For Mac: 
+% /Users/Username/Library/texmf/tex/latex/beamer/beamerthemeChalmers.sty
+%
+% For Windows (MikTeX): 
+% $MIKTEXROOT\tex\latex\beamer\base\themes\
+\ProvidesPackage{beamerthemeChalmersB}[2021/05/19 v1.2 Chalmers Theme for LaTeX Beamer]
+
+% load required packages
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{tikz,pgf}
+\RequirePackage{xspace}
+\RequirePackage[absolute, overlay]{textpos}
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{1cm}
+  
+\mode<presentation>
+% >>>
+%==============================================================
+% colors <<<
+%==============================================================
+%\definecolor{ChalmersGray}{RGB}{204,204,204}
+%\definecolor{ChalmersBlue}{RGB}{0,74,141}
+\definecolor{ChalmersDarkBlue}{RGB}{41,41,102}
+%\definecolor{ChalmersDarkBlue}{RGB}{0,0,102}
+
+\setbeamercolor{block title}{use=structure,fg=ChalmersDarkBlue,bg=ChalmersDarkBlue!20}
+\setbeamercolor{block title alerted}{use=alerted text,fg=alerted text.fg,bg=alerted text.fg!20!bg}
+\setbeamercolor{block title example}{use=example text,fg=example text.fg,bg=example text.fg!20!bg}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!50!bg}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!50!bg}
+
+%\setbeamercolor{normal text}{fg=}
+%\setbeamercolor{alerted text}{fg=}
+%\setbeamercolor{example text}{fg=}
+%\setbeamercolor{structure}{fg=}
+%
+%\setbeamercolor{author}{fg=}
+%\setbeamercolor{date}{fg=}
+
+%\setbeamercolor{normal text}{fg=}
+%\setbeamercolor{alerted text}{fg=}
+%\setbeamercolor{example text}{fg=}
+%\setbeamercolor{structure}{fg=}
+
+%%\setbeamercolor{sections/subsections in toc}{fg=}
+%\setbeamercolor{section in toc shaded}{use=structure,fg=structure.fg}
+\setbeamercolor{section in toc}{fg=ChalmersDarkBlue}
+%\setbeamercolor{subsection in toc shaded}{fg=red}
+%\setbeamercolor{subsection in toc}{fg=red}
+
+\setbeamercolor{title}{fg=ChalmersDarkBlue}
+\setbeamercolor{subtitle}{fg=ChalmersDarkBlue}
+\setbeamercolor{title}{fg=ChalmersDarkBlue}
+\setbeamercolor{framesubtitle}{fg=ChalmersDarkBlue}
+\setbeamercolor{frametitle}{fg=ChalmersDarkBlue}
+
+%\setbeamercolor{section in head/foot}{parent=palette tertiary}
+\setbeamercolor{section in head/foot}{fg=white, bg=ChalmersDarkBlue}
+\setbeamercolor{subsection in head/foot}{parent=palette secondary}
+\setbeamercolor{author in head/foot}{parent=subsection in head/foot}
+\setbeamercolor{author in head/foot}{fg=ChalmersDarkBlue}
+\setbeamercolor{title in head/foot}{parent=section in head/foot}
+% >>>
+%==============================================================
+% footline and options <<<
+%==============================================================
+\def\beamer@chalmers@footline@default{%
+	\defbeamertemplate{footline}{ChalmersFooter}{%
+		\begin{beamercolorbox}[colsep=0.2pt]{upper separation line foot}
+		\end{beamercolorbox}
+		\begin{beamercolorbox}[%
+			ht=3.5ex,%
+			dp=1.125ex,%
+			leftskip=.3cm,%
+			rightskip=.3cm plus1fil]{upper seperation line foot}%
+			\hfill
+			\scriptsize
+			\insertframenumber\,/\,\inserttotalframenumber%
+			\vskip0.1pt
+		\end{beamercolorbox}%
+	}%
+}%
+
+\def\beamer@chalmers@footline@authortitle{%
+	\defbeamertemplate{footline}{ChalmersFooter}{%
+		\begin{beamercolorbox}[colsep=0.2pt]{upper separation line foot}
+		\end{beamercolorbox}
+		\begin{beamercolorbox}[%
+			ht=3.5ex,%
+			dp=1.125ex,%
+			leftskip=.3cm,%
+			%rightskip=.3cm plus1fil]{title in head/foot}%
+			rightskip=.3cm plus1fil]{upper seperation line foot}%
+			\scriptsize
+			\insertshorttitle \quad \textbar \quad \insertshortauthor
+			\hfill
+			\scriptsize
+			\insertframenumber\,/\,\inserttotalframenumber%
+			\vskip0.1pt
+		\end{beamercolorbox}%
+	}%
+}%
+
+%\newif\ifbeamer@theme@subsection
+%\beamer@theme@subsectiontrue
+
+\def\beamer@opt@bold{%
+	\setbeamerfont{frametitle}{size=\small, series=\bfseries}%
+}%
+
+\DeclareOptionBeamer{noboldtitle}{\let\beamer@opt@bold=\relax}
+\DeclareOptionBeamer{shadow}[true]{\def\beamer@themerounded@shadow{#1}}
+\DeclareOptionBeamer{footline}{\csname beamer@chalmers@footline@#1\endcsname}
+%\DeclareOptionBeamer{subsection}[true]{\csname beamer@theme@subsection#1\endcsname}
+
+\ExecuteOptionsBeamer{shadow=false}
+\ProcessOptionsBeamer
+
+\beamer@opt@bold
+
+\setbeamertemplate{footline}[ChalmersFooter]
+% >>>
+%==============================================================
+% headline <<<
+%==============================================================
+\newdimen{\dh}
+\setlength{\dh}{\paperwidth}
+\defbeamertemplate*{headline}{ChalmersHeader}
+{%
+	\vskip-1cm
+	\hskip-0.2cm
+	\tikz \path[fill=ChalmersDarkBlue, rounded corners=3pt]
+	(0,0)--(\paperwidth-2.25cm,0)--(\paperwidth-2.25cm,-0.18)--(\paperwidth+1cm,-0.18)--(\paperwidth+1cm, 1.5)--(0, 1.5)-- cycle;
+	%
+	\begin{textblock}{2}(0,0.25)%
+		\begin{tikzpicture}[]
+			\node (a) at (0.0, 0) {};
+			\node (b) at (\paperwidth-1.25cm, 0) {\includegraphics[width=2cm]{chalmers_white_logo}};
+		\end{tikzpicture}
+		%\includegraphics[width=2cm]{chalmers_white_logo}
+	\end{textblock}%
+%  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+%  \end{beamercolorbox}
+  %\begin{beamercolorbox}{section in head/foot}
+	\vskip-0.75cm
+  \begin{beamercolorbox}{white}
+		\hfill 
+		%\includegraphics[width=2cm]{chalmers_white_logo}\vskip2pt
+		\vskip2pt\insertnavigation{0.8\paperwidth}\vskip2pt%
+  \end{beamercolorbox}%
+%  \ifbeamer@theme@subsection%
+%    \begin{beamercolorbox}[colsep=1.5pt]{middle separation line head}
+%    \end{beamercolorbox}
+%    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,%
+%      leftskip=.3cm,rightskip=.3cm plus1fil]{subsection in head/foot}
+%      \usebeamerfont{subsection in head/foot}\insertsubsectionhead
+%    \end{beamercolorbox}%
+%  \fi%
+  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+  \end{beamercolorbox}
+	%\vskip1cm
+}
+% >>>
+%==============================================================
+% titlepage <<<
+%==============================================================
+\defbeamertemplate*{title page}{chalmers}[1][]
+{
+	% blue background
+	\begin{textblock}{0}(-1.0,-0.6)%
+		\tikz \path[fill=ChalmersDarkBlue, rounded corners=5pt] (2.4,1)--(2.4,-\paperheight+3.5cm)--(2.8,-\paperheight+3.5cm)--(2.8,-\paperheight+0cm)--(-1,-\paperheight+0cm)--(-1,1)-- cycle;
+	\end{textblock}%
+	% chalmers logo
+	\begin{textblock}{0}(0.3,0.0)%
+		\begin{tikzpicture}[]
+			\node (a) at (0.0,0) {};
+			\node (b) at (0,-\paperheight+1.7cm) {\includegraphics[width=2cm]{chalmers_logo_white}};
+		\end{tikzpicture}
+		%\includegraphics[width=2cm]{chalmers_logo_white}
+	\end{textblock}%
+	% old titlepage
+	\begin{columns}
+		\column{0.2\paperwidth}
+
+		\column{0.8\paperwidth}
+			\vbox{}
+			\vfill
+			\begin{centering}
+				\begin{beamercolorbox}[sep=8pt,center,#1]{title}
+					\usebeamerfont{title}\inserttitle\par%
+					\ifx\insertsubtitle\@empty%
+					\else%
+						\vskip0.25em%
+						{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+					\fi%     
+				\end{beamercolorbox}%
+				%\vskip1em\par
+%				{\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+%				\vskip1em\par
+				\begin{beamercolorbox}[sep=8pt,center,#1]{author}
+					\usebeamerfont{author}\insertauthor
+				\end{beamercolorbox}
+				\begin{beamercolorbox}[sep=8pt,center,#1]{institute}
+					\usebeamerfont{institute}\insertinstitute
+				\end{beamercolorbox}
+				\begin{beamercolorbox}[sep=8pt,center,#1]{date}
+					\usebeamerfont{date}\insertdate
+				\end{beamercolorbox}%\vskip0.5em
+				{\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+			\end{centering}
+			\vfill
+	\end{columns}
+	\setcounter{framenumber}{0}
+}
+
+\setbeamertemplate{title page}[chalmers]
+% >>>
+%==============================================================
+% items, enumerations, blocks, table of contents <<<
+%==============================================================
+% activate or deactivate shadows of the blocks
+\setbeamertemplate{blocks}[rounded][shadow=\beamer@themerounded@shadow]
+
+% items
+%\setbeamertemplate{items}[ball]
+%\setbeamertemplate{items}[circle]
+%\setbeamertemplate{itemize item}[default]
+\beamertemplatedotitem % dots 
+
+% enumeration
+%\defbeamertemplate*{enumerate item}{default}{\insertenumlabel.}
+%\defbeamertemplate*{enumerate subitem}{default}{\insertenumlabel.\insertsubenumlabel}
+%\defbeamertemplate*{enumerate subsubitem}{default}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
+%\defbeamertemplate*{enumerate mini template}{default}{\insertenumlabel}
+\setbeamertemplate{enumerate item}[default]
+\setbeamertemplate{enumerate subitem}[default]
+
+% table of contents
+%\setbeamertemplate{sections/subsections in toc}[default]
+%\setbeamertemplate{sections/subsections in toc shaded}[default]
+%\defbeamertemplate*{subsection in toc}{mydefault}
+%{\leavevmode\leftskip=2.5em \inserttocsubsection\par}
+
+%\defbeamertemplate{section in toc}{sections numbered}
+%{\leavevmode\inserttocsectionnumber. \inserttocsection\par}
+%\defbeamertemplate{subsection in toc}{sections numbered}
+%{\leavevmode\leftskip=2.5em\inserttocsubsection\par}
+
+\setbeamertemplate{sections/subsections in toc}[sections numbered]
+%\setbeamertemplate{sections/subsections in toc}[default]
+
+% set frametitle to center
+\setbeamertemplate{frametitle}[default][center]
+
+\mode<all>
+% >>>
+%==============================================================
+% fonts <<<
+%==============================================================
+% size=\tiny \footnotesize \scriptsize \large \huge \Huge
+% series=\bfseries \mdseries
+% shape=\itshape \scshape \upshape \slshape
+% family=\sffamily \rmfamily \ttfamily
+
+%\setbeamerfont{author}{size=\scriptsize}
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{date}{size=\small}
+%\setbeamerfont{institute}{family=\rmfamily}
+%\setbeamerfont{example text}{series=\bfseries}
+\setbeamerfont{frametitle}{size=\LARGE}
+%\setbeamerfont{framesubtitle}{series=\scshape}
+%\setbeamerfont{section}{series=\bfseries}
+%\setbeamerfont{title}{series=\bfseries}
+%\setbeamerfont{tiny structure}{shape=\scshape,family=\rmfamily}%
+%\setbeamerfont{structure}{shape=\scshape,family=\rmfamily}%
+% set fonts
+
+\mode<all>
+% >>>
+%==============================================================
