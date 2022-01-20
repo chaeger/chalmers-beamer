@@ -5,8 +5,8 @@ A [LaTeX Beamer](https://ctan.org/pkg/beamer?lang=en) theme for students and res
 The template and an example can be found in the folder `template`. After compiling the `.tex` file, the resulting `.pdf` should look something like this: 
 
 <p align="center"> 
-<img width=400 src="http://chaeger.site44.com/img/slide1.jpg">
-<img width=400 src="http://chaeger.site44.com/img/slide2.jpg">
+<img width=400 src="slide1.jpg">
+<img width=400 src="slide2.jpg">
 </p>
 <p align="center"> 
 </p>
